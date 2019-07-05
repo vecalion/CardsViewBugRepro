@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    x:Class="cardsbug.MainPage"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    ios:Page.UseSafeArea="true"
+    xmlns:local="clr-namespace:cardsbug.ViewModels"
+    x:Name="CurrentPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+            <DataTemplate x:Key="Template1">
+                <ContentView>
+                    <StackLayout>
+                        <ListView ItemsSource="{Binding Messages}" HorizontalOptions="FillAndExpand" 
+                            SelectionMode="None"
+                            VerticalOptions="FillAndExpand" CachingStrategy="RetainElement" SeparatorVisibility="None" HasUnevenRows="false"  >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell >
+                                    <ViewCell.ContextActions>
+                                         <!--<MenuItem Command="{Binding Source={x:Reference MySurveyWizardPage}, Path=BindingContext.RetakeImageCommand}" CommandParameter="{Binding .}" Text="Retake" />-->
+                                         <MenuItem Command="{Binding DeleteCommand}" Text="Delete" IsDestructive="True" />
+                                   </ViewCell.ContextActions>
+                                   <Label Text="{Binding Message}" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>     
+                        <Button Text="Add" Command="{Binding Source={x:Reference CurrentPage}, Path=BindingContext.AddCommand}" />
+                    <Button Text="Next" Command="{Binding Source={x:Reference CurrentPage}, Path=BindingContext.NextCommand}" />
+                    </StackLayout>
+                </ContentView>
+            </DataTemplate>
+            
+            <DataTemplate x:Key="Template2">
+                <ContentView>
+                    <StackLayout>
+                        <ListView ItemsSource="{Binding Messages}" HorizontalOptions="FillAndExpand" 
+                            SelectionMode="None"
+                            VerticalOptions="FillAndExpand" CachingStrategy="RetainElement" SeparatorVisibility="None" HasUnevenRows="false"  >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell >
+                                    <ViewCell.ContextActions>
+                                         <!--<MenuItem Command="{Binding Source={x:Reference MySurveyWizardPage}, Path=BindingContext.RetakeImageCommand}" CommandParameter="{Binding .}" Text="Retake" />-->
+                                         <MenuItem Command="{Binding DeleteCommand}" Text="Delete" IsDestructive="True" />
+                                   </ViewCell.ContextActions>
+                                   <Label TextColor="Green" Text="{Binding Message}" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                        <Button Text="Add" Command="{Binding Source={x:Reference CurrentPage}, Path=BindingContext.AddCommand}" />
+                        <Button Text="Next" Command="{Binding Source={x:Reference CurrentPage}, Path=BindingContext.NextCommand}" />
+                    </StackLayout>
+                </ContentView>
+            </DataTemplate>
+            
+            <DataTemplate x:Key="Template3">
+                <ContentView>
+                    <StackLayout>
+                        <ListView ItemsSource="{Binding Messages}" HorizontalOptions="FillAndExpand" 
+                            SelectionMode="None"
+                            VerticalOptions="FillAndExpand" CachingStrategy="RetainElement" SeparatorVisibility="None" HasUnevenRows="false"  >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell >
+                                    <ViewCell.ContextActions>
+                                         <!--<MenuItem Command="{Binding Source={x:Reference MySurveyWizardPage}, Path=BindingContext.RetakeImageCommand}" CommandParameter="{Binding .}" Text="Retake" />-->
+                                         <MenuItem Command="{Binding DeleteCommand}" Text="Delete" IsDestructive="True" />
+                                   </ViewCell.ContextActions>
+                                   <Label TextColor="Blue" Text="{Binding Message}" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                        <Button Text="Add" Command="{Binding Source={x:Reference CurrentPage}, Path=BindingContext.AddCommand}" />
+                        <Button Text="Next" Command="{Binding Source={x:Reference CurrentPage}, Path=BindingContext.NextCommand}" />
+                    </StackLayout>
+                </ContentView>
+            </DataTemplate>
+            
+            <local:CardsTemplateSelector x:Key="TemplateSelector" 
+                                         Template1="{StaticResource Template1}" 
+                                         Template2="{StaticResource Template2}"
+                                         Template3="{StaticResource Template3}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <cards:CarouselView 
+            x:Name="Carousel"
+            ItemsSource="{Binding Cards}"
+            SelectedIndex="{Binding Position}"
+            FlowDirection="LeftToRight"
+            IsPanSwipeEnabled="true"
+            IsPanInteractionEnabled="true"
+            IsUserInteractionEnabled="true"
+            IsAutoNavigatingAimationEnabled="true"
+            ItemTemplate="{StaticResource TemplateSelector}"
+            IsViewCacheEnabled="false">
+            
+            <!---->
+            
+            
+        </cards:CarouselView>
+    </ContentPage.Content>
+</ContentPage>
